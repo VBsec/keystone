@@ -15,7 +15,7 @@ const LoginForm = ({
 	return (
 		<div className="auth-box__col">
 			<Form onSubmit={handleSubmit} noValidate>
-				<FormField label="Email" htmlFor="email">
+				<FormField label="Sähköposti" htmlFor="email">
 					<FormInput
 						autoFocus
 						type="email"
@@ -24,7 +24,7 @@ const LoginForm = ({
 						value={email}
 					/>
 				</FormField>
-				<FormField label="Password" htmlFor="password">
+				<FormField label="Salasana" htmlFor="password">
 					<FormInput
 						type="password"
 						name="password"
@@ -33,7 +33,7 @@ const LoginForm = ({
 					/>
 				</FormField>
 				<Button disabled={isAnimating} color="primary" type="submit">
-					Sign In
+					Kirjaudu
 				</Button>
 			</Form>
 		</div>

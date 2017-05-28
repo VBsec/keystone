@@ -11,17 +11,17 @@ const UserInfo = ({
 }) => {
 	const adminButton = userCanAccessKeystone ? (
 		<Button href={adminPath} color="primary">
-			Open Keystone
+			Avaa hallintapaneeli
 		</Button>
 	) : null;
 
 	return (
 		<div className="auth-box__col">
-			<p>Hi {userName},</p>
-			<p>You're already signed in.</p>
+			<p>Terve {userName},</p>
+			<p>Sinä olet jo kirjautunut sisään.</p>
 			{adminButton}
 			<Button href={signoutPath} variant="link" color="cancel">
-				Sign Out
+				Kirjaudu ulos
 			</Button>
 		</div>
 	);
