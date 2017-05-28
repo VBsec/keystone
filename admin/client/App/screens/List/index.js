@@ -106,7 +106,7 @@ const ListView = React.createClass({
 		list.createItem(null, (err, data) => {
 			if (err) {
 				// TODO Proper error handling
-				alert('Something went wrong, please try again!');
+				alert('Jokin meni pieleen, yritä uudelleen.');
 				console.log(err);
 			} else {
 				this.context.router.push(`${Keystone.adminPath}/${list.path}/${data.id}`);
@@ -157,13 +157,13 @@ const ListView = React.createClass({
 		this.setState({
 			confirmationDialog: {
 				isOpen: true,
-				label: 'Delete',
+				label: 'Poista',
 				body: (
 					<div>
-						Are you sure you want to delete {itemCount}?
+						Oletko varma että haluta poistaa {itemCount}?
 						<br />
 						<br />
-						This cannot be undone.
+						Poisto on pysyvä.
 					</div>
 				),
 				onConfirmation: () => {
@@ -346,13 +346,13 @@ const ListView = React.createClass({
 		this.setState({
 			confirmationDialog: {
 				isOpen: true,
-				label: 'Delete',
+				label: 'Poista',
 				body: (
 					<div>
-						Are you sure you want to delete <strong>{item.name}</strong>?
+						Oletko varma että haluta poistaa <strong>{item.name}</strong>?
 						<br />
 						<br />
-						This cannot be undone.
+						Poisto on pysyvä.
 					</div>
 				),
 				onConfirmation: () => {
@@ -413,7 +413,7 @@ const ListView = React.createClass({
 		// display the button if create allowed
 		const button = !currentList.nocreate ? (
 			<GlyphButton color="success" glyph="plus" position="left" onClick={onClick} data-e2e-list-create-button="no-results">
-				Create {currentList.singular}
+				Luo uusi {currentList.singular}
 			</GlyphButton>
 		) : null;
 
@@ -422,11 +422,11 @@ const ListView = React.createClass({
 				{(this.props.error) ? (
 					<FlashMessages
 						messages={{ error: [{
-							title: "There is a problem with the network, we're trying to reconnect...",
+							title: "Yhteysongelmia, yritetään uudelleen...",
 						}] }}
 					/>
 				) : null}
-				<BlankState heading={`No ${this.props.currentList.plural.toLowerCase()} found...`} style={{ marginTop: 40 }}>
+				<BlankState heading={`${this.props.currentList.plural.toLowerCase()} ei löytynyt.`} style={{ marginTop: 40 }}>
 					{button}
 				</BlankState>
 			</Container>
@@ -458,7 +458,7 @@ const ListView = React.createClass({
 					{(this.props.error) ? (
 						<FlashMessages
 							messages={{ error: [{
-								title: "There is a problem with the network, we're trying to reconnect..",
+								title: "Yhteysongelmia, yritetään uudelleen...",
 							}] }}
 						/>
 					) : null}
@@ -495,9 +495,9 @@ const ListView = React.createClass({
 		if (this.props.items.results.length) return null;
 		let matching = this.props.active.search;
 		if (this.props.active.filters.length) {
-			matching += (matching ? ' and ' : '') + pluralize(this.props.active.filters.length, '* filter', '* filters');
+			matching += (matching ? ' ja ' : '') + pluralize(this.props.active.filters.length, '* suodatin', '* suodattimia');
 		}
-		matching = matching ? ' found matching ' + matching : '.';
+		matching = matching ? ' osumia löytyi ' + matching : '.';
 		return (
 			<BlankState style={{ marginTop: 20, marginBottom: 20 }}>
 				<Glyph
@@ -506,7 +506,7 @@ const ListView = React.createClass({
 					style={{ marginBottom: 20 }}
 				/>
 				<h2 style={{ color: 'inherit' }}>
-					No {this.props.currentList.plural.toLowerCase()}{matching}
+					Ei {this.props.currentList.plural.toLowerCase()}{matching}
 				</h2>
 			</BlankState>
 		);

@@ -17,8 +17,8 @@ const UserInfo = ({
 
 	return (
 		<div className="auth-box__col">
-			<p>Terve {userName},</p>
-			<p>Sinä olet jo kirjautunut sisään.</p>
+			<p>Hei, {userName},</p>
+			<p>Olet jo kirjautuneena sisään.</p>
 			{adminButton}
 			<Button href={signoutPath} variant="link" color="cancel">
 				Kirjaudu ulos

@@ -36,9 +36,9 @@ const App = (props) => {
 		if (!currentList) {
 			children = (
 				<Container>
-					<p>List not found!</p>
+					<p>Listaa ei löytynyt</p>
 					<Link to={`${Keystone.adminPath}`}>
-						Go back home
+						Palaa etusivulle
 					</Link>
 				</Container>
 			);

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-const DATE_FORMAT = 'MMM D YYYY';
-const DATETIME_FORMAT = 'MMM D YYYY h:mm:ss';
+const DATE_FORMAT = 'D MM YYYY';
+const DATETIME_FORMAT = 'D MMM YYYY h:mm:ss';
 
 function getFilterLabel (field, value) {
 	const label = field.label;
@@ -11,7 +11,7 @@ function getFilterLabel (field, value) {
 		case 'boolean': {
 			return value.value
 				? label
-				: `NOT ${label}`;
+				: `EI ${label}`;
 		}
 
 		// DATE
@@ -21,9 +21,9 @@ function getFilterLabel (field, value) {
 
 		// DATE ARRAY
 		case 'datearray': {
-			const presence = value.presence === 'some' ? 'Some' : 'No';
+			const presence = value.presence === 'some' ? 'Osa' : 'Ei';
 
-			return `${presence} ${label} ${resolveDateFormat(value, DATETIME_FORMAT, 'are')}`;
+			return `${presence} ${label} ${resolveDateFormat(value, DATETIME_FORMAT, 'ovat')}`;
 		}
 
 		// DATETIME
@@ -44,7 +44,7 @@ function getFilterLabel (field, value) {
 
 		// LOCATION
 		case 'location': {
-			const joiner = value.inverted ? 'does NOT match' : 'matches';
+			const joiner = value.inverted ? 'EI osu' : 'osuu';
 
 			// Remove undefined values before rendering the template literal
 			const formattedValue = [
@@ -66,24 +66,24 @@ function getFilterLabel (field, value) {
 
 		// NUMBER ARRAY
 		case 'numberarray': {
-			const presence = value.presence === 'some' ? 'Some' : 'No';
+			const presence = value.presence === 'some' ? 'Osa' : 'Ei';
 
-			return `${presence} ${label} ${resolveNumberFormat(value, 'are')}`;
+			return `${presence} ${label} ${resolveNumberFormat(value, 'ovat')}`;
 		}
 
 		// PASSWORD
 		case 'password': {
 			return value.exists
-				? `${label} is set`
-				: `${label} is NOT set`;
+				? `${label} on asetettu`
+				: `${label} EI ole asetettu`;
 		}
 
 		// RELATIONSHIP
 		// TODO populate relationship, currently rendering an ID
 		case 'relationship': {
-			let joiner = value.inverted ? 'is NOT' : 'is';
+			let joiner = value.inverted ? 'EI ole' : 'on';
 			let formattedValue = (value.value.length > 1)
-				? value.value.join(', or ')
+				? value.value.join(', tai ')
 				: value.value[0];
 
 			return `${label} ${joiner} ${formattedValue}`;
@@ -91,9 +91,9 @@ function getFilterLabel (field, value) {
 
 		// SELECT
 		case 'select': {
-			let joiner = value.inverted ? 'is NOT' : 'is';
+			let joiner = value.inverted ? 'EI ole' : 'on';
 			let formattedValue = (value.value.length > 1)
-				? value.value.join(', or ')
+				? value.value.join(', tai ')
 				: value.value[0];
 
 			return `${label} ${joiner} ${formattedValue}`;
@@ -112,13 +112,13 @@ function getFilterLabel (field, value) {
 		case 'url': {
 			let mode = '';
 			if (value.mode === 'beginsWith') {
-				mode = value.inverted ? 'does NOT begin with' : 'begins with';
+				mode = value.inverted ? 'EI ala' : 'alkaa';
 			} else if (value.mode === 'endsWith') {
-				mode = value.inverted ? 'does NOT end with' : 'ends with';
+				mode = value.inverted ? 'EI lopu' : 'loppuu';
 			} else if (value.mode === 'exactly') {
-				mode = value.inverted ? 'is NOT exactly' : 'is exactly';
+				mode = value.inverted ? 'EI ole' : 'on';
 			} else if (value.mode === 'contains') {
-				mode = value.inverted ? 'does NOT contain' : 'contains';
+				mode = value.inverted ? 'EI sisällä' : 'sisältää';
 			}
 
 			return `${label} ${mode} "${value.value}"`;
@@ -126,16 +126,16 @@ function getFilterLabel (field, value) {
 
 		// TEXTARRAY
 		case 'textarray': {
-			const presence = value.presence === 'some' ? 'Some' : 'No';
+			const presence = value.presence === 'some' ? 'Osa' : 'Ei';
 			let mode = '';
 			if (value.mode === 'beginsWith') {
-				mode = value.inverted ? 'do NOT begin with' : 'begin with';
+				mode = value.inverted ? 'EI ala' : 'alkaa';
 			} else if (value.mode === 'endsWith') {
-				mode = value.inverted ? 'do NOT end with' : 'end with';
+				mode = value.inverted ? 'EI lopu' : 'loppuu';
 			} else if (value.mode === 'exactly') {
-				mode = value.inverted ? 'are NOT exactly' : 'are exactly';
+				mode = value.inverted ? 'EI ole' : 'on';
 			} else if (value.mode === 'contains') {
-				mode = value.inverted ? 'do NOT contain' : 'contain';
+				mode = value.inverted ? 'EI sisällä' : 'sisältää';
 			}
 
 			return `${presence} ${label} ${mode} "${value.value}"`;
@@ -148,24 +148,24 @@ function getFilterLabel (field, value) {
 	}
 };
 
-function resolveNumberFormat (value, conjunction = 'is') {
+function resolveNumberFormat (value, conjunction = 'on') {
 	let mode = '';
 	if (value.mode === 'equals') mode = conjunction;
-	else if (value.mode === 'gt') mode = `${conjunction} greater than`;
-	else if (value.mode === 'lt') mode = `${conjunction} less than`;
+	else if (value.mode === 'gt') mode = `${conjunction} suurempi kuin`;
+	else if (value.mode === 'lt') mode = `${conjunction} pienempi kuin`;
 
 	const formattedValue = value.mode === 'between'
-		? `is between ${value.value.min} and ${value.value.max}`
+		? `on välillä ${value.value.min} ja ${value.value.max}`
 		: value.value;
 
 	return `${mode} ${formattedValue}`;
 }
 
-function resolveDateFormat (value, format, conjunction = 'is') {
+function resolveDateFormat (value, format, conjunction = 'on') {
 	const joiner = value.inverted ? `${conjunction} NOT` : conjunction;
 	const mode = value.mode === 'on' ? '' : value.mode;
 	const formattedValue = value.mode === 'between'
-		? `${moment(value.after).format(format)} and ${moment(value.before).format(format)}`
+		? `${moment(value.after).format(format)} ja ${moment(value.before).format(format)}`
 		: moment(value.value).format(format);
 
 	return `${joiner} ${mode} ${formattedValue}`;

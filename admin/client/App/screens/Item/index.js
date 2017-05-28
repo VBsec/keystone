@@ -81,7 +81,7 @@ var ItemView = React.createClass({
 		return (
 			<div className="Relationships">
 				<Container>
-					<h2>Relationships</h2>
+					<h2>Yhteydet</h2>
 					{keys.map(key => {
 						const relationship = relationships[key];
 						const refList = listsByKey[relationship.ref];
@@ -113,9 +113,9 @@ var ItemView = React.createClass({
 				return (
 					<Container>
 						<Alert color="danger" style={{ marginTop: '2em' }}>
-							No item matching id "{this.props.routeParams.itemId}".&nbsp;
+							Ei osumia id:llä "{this.props.routeParams.itemId}".&nbsp;
 							<Link to={`${Keystone.adminPath}/${this.props.routeParams.listId}`}>
-								Got back to {this.props.routeParams.listId}?
+								Mene takaisin {this.props.routeParams.listId}?
 							</Link>
 						</Alert>
 					</Container>
@@ -128,7 +128,7 @@ var ItemView = React.createClass({
 				return (
 					<Container>
 						<Alert color="danger" style={{ marginTop: '2em' }}>
-							We encountered some network problems, please refresh.
+							Yhteysongelmia. Päivitä sivu.
 						</Alert>
 					</Container>
 				);
@@ -137,7 +137,7 @@ var ItemView = React.createClass({
 		return (
 			<Container>
 				<Alert color="danger" style={{ marginTop: '2em' }}>
-					An unknown error has ocurred, please refresh.
+					Tuntematon virhe. Päivitä sivu.
 				</Alert>
 			</Container>
 		);

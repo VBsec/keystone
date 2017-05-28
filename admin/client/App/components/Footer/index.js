@@ -25,7 +25,7 @@ var Footer = React.createClass({
 
 		return (
 			<span>
-				<span> Signed in as </span>
+				<span> Kirjautuneena: </span>
 				<a href={`${Keystone.adminPath}/${User.path}/${user.id}`} tabIndex="-1" className={css(classes.link)}>
 					{user.name}
 				</a>

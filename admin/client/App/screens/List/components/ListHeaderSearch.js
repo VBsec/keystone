@@ -19,7 +19,7 @@ function ListHeaderSearch ({
 				data-search-input-field
 				onChange={handleChange}
 				onKeyUp={handleKeyup}
-				placeholder="Search"
+				placeholder="Etsi"
 				value={value}
 			/>
 			<button
@@ -27,7 +27,7 @@ function ListHeaderSearch ({
 				data-search-input-field-clear-icon
 				disabled={!value.length}
 				onClick={value.length && handleClear}
-				title="Clear search query"
+				title="Tyhjennä kenttä"
 				type="button"
 			>
 				<Glyph name={value.length ? 'x' : 'search'} />

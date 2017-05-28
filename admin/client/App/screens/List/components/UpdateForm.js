@@ -86,7 +86,7 @@ var UpdateForm = React.createClass({
 
 		const fieldsUI = formFields.length ? formFields : (
 			<BlankState
-				heading="Choose a field above to begin"
+				heading="Valitse kenttä yläpuolella aloittaaksesi."
 				style={{ padding: '3em 2em' }}
 			/>
 		);
@@ -107,7 +107,7 @@ var UpdateForm = React.createClass({
 				<Modal.Header
 					onClose={this.handleClose}
 					showCloseButton
-					text={'Update ' + itemCount}
+					text={'Päivitä ' + itemCount}
 				/>
 				<Modal.Body>
 					<Select
@@ -121,8 +121,8 @@ var UpdateForm = React.createClass({
 					{this.renderFields()}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button color="primary" submit>Update</Button>
-					<Button color="cancel" variant="link" onClick={this.handleClose}>Cancel</Button>
+					<Button color="primary" submit>Päivitä</Button>
+					<Button color="cancel" variant="link" onClick={this.handleClose}>Peruuta</Button>
 				</Modal.Footer>
 			</Form>
 		);
